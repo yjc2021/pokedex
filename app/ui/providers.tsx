@@ -1,6 +1,7 @@
 "use client";
 
 import { isServer, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 type Props = {
   children: React.ReactNode;
@@ -29,5 +30,10 @@ function getQueryClient() {
 export default function Providers({ children }: Props) {
   const queryCLient = getQueryClient();
 
-  return <QueryClientProvider client={queryCLient}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryCLient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 }
