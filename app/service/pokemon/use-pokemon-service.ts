@@ -3,14 +3,9 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import queryOptions from "./queries";
 
 export function usePokemon() {
-  // const { data, hasNextPage, isFetchingNextPage, fetchNextPage, ...rest } = useInfiniteQuery({
-  //   ...queryOptions.all(),
-  //   select: (returnedData) => returnedData.pages.flatMap((page) => page.results),
-  //   staleTime: Infinity,
-  // });
-
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage, ...rest } = useInfiniteQuery({
     ...queryOptions.all(),
+    select: (returnedData) => returnedData.pages.flatMap((page) => page.results),
     staleTime: Infinity,
   });
 
@@ -21,7 +16,7 @@ export function usePokemon() {
   };
 
   return {
-    pokemonPages: data?.pages,
+    pokemonEntries: data,
     handleNextPage,
     hasNextPage,
     isFetchingNextPage,
